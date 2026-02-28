@@ -38,17 +38,17 @@ async function runDemo() {
 
         console.log(productoActualizado);
 
-        console.log("----------------Producto Eliminado----------------")
-
-        const productoEliminado = await ProductService.delete(productoCreado._id);
-
-        console.log(productoEliminado);
-
         console.log("----------------Productos Listados----------------")
 
         const productosListados = await ProductService.listAll();
 
         console.log(productosListados);
+
+        console.log("----------------Producto Eliminado----------------")
+
+        const productoEliminado = await ProductService.delete(productoCreado._id);
+
+        console.log(productoEliminado);
 
     } catch (error) {
         console.error('Error:', error);
