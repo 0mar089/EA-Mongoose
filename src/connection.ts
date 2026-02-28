@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 import { ProductModel } from './product.js';
 import { OrganizationModel } from './organization.js';
 import { ProductService } from './Services/productServices.js';
+import { Types } from 'mongoose';
 
 async function runDemo() {
     try {
@@ -17,30 +18,37 @@ async function runDemo() {
             { name: 'Apple Inc.', country: 'USA' }
         ]);
 
+        console.log("----------------Producto Creado----------------")
+
         const productoCreado = await ProductService.create({
             name: 'Laptop HP',
             price: 1200,
-            organization: orgs[0]._id
-        } as any);
+            organization: new Types.ObjectId(orgs[0]._id)
+        });
 
-        console.log('----------------Product Creado----------------');
         console.log(productoCreado);
 
-        const productoGeteado = await ProductService.getById(productoCreado._id.toString());
-        console.log('----------------Product Geteado----------------');
-        console.log(productoGeteado);
+        console.log("----------------Producto Actualizado----------------")
 
-        const productoActualizado = await ProductService.update(productoCreado._id.toString(), { price: 1500 });
-        console.log('----------------Product Actualizado----------------');
+        const productoActualizado = await ProductService.update(productoCreado._id, { // Le cambiamos todo, he visto que se puede usar Partial para cambiar solo x cosa en concreto pero no lo uso
+            name: 'MacBook Pro',  
+            price: 2000,
+            organization: new Types.ObjectId(orgs[1]._id)
+        });
+
         console.log(productoActualizado);
 
-        const todosLosProductos = await ProductService.listAll();
-        console.log('----------------Todos los Productos----------------');
-        console.log(todosLosProductos);
+        console.log("----------------Producto Eliminado----------------")
 
-        const productoEliminado = await ProductService.delete(productoCreado._id.toString());
-        console.log('----------------Product Eliminado----------------');
+        const productoEliminado = await ProductService.delete(productoCreado._id);
+
         console.log(productoEliminado);
+
+        console.log("----------------Productos Listados----------------")
+
+        const productosListados = await ProductService.listAll();
+
+        console.log(productosListados);
 
     } catch (error) {
         console.error('Error:', error);

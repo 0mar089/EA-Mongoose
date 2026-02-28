@@ -13,5 +13,5 @@ const productSchema = new Schema<IProduct>({
     organization: { type: Schema.Types.ObjectId, ref: 'Organization', required: true }
 });
 
-export const ProductModel = model<IProduct>('Product', productSchema);
+export const ProductModel = model<IProduct>('Product', productSchema); // Camarero entre yo y MongoDB
 
