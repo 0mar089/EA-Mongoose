@@ -50,6 +50,16 @@ async function runDemo() {
 
         console.log(productoEliminado);
 
+        console.log("----------------Producto Creado Otra Vez----------------")
+
+        const productoCreadoDeNuevo = await ProductService.create({
+            name: 'IPad Air',
+            price: 1800,
+            organization: new Types.ObjectId(orgs[1]._id)
+        });
+
+        console.log(productoCreadoDeNuevo);
+
     } catch (error) {
         console.error('Error:', error);
     } finally {
